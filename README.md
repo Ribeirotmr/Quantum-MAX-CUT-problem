@@ -1,6 +1,6 @@
-# Quantum-Max-Cut 
+# Quantum Max-Cut e QAOA
 
-# Introdução
+## Introdução
 
 O problema **Max-Cut** consiste em dividir os vértices de um grafo \( G = (V, E) \) em dois conjuntos não vazios \( S \) e \( \overline{S} \) de forma a **maximizar a soma dos pesos das arestas que conectam vértices de conjuntos diferentes**.
 
@@ -17,7 +17,7 @@ onde:
 
 ---
 
-# Por que transformar para matriz de adjacência?
+## Por que transformar para matriz de adjacência?
 
 Para aplicar algoritmos clássicos e quânticos, como **QAOA**, precisamos **representar o grafo em uma forma matricial direta**, pois:
 - Permite cálculos eficientes,
@@ -38,7 +38,7 @@ Cada linha significa: **(vértice $i$, vértice $j$, peso)**.
 
 ---
 
-# Como transformar matematicamente?
+## Como transformar matematicamente?
 
 Se temos $n$ vértices, a matriz de adjacência $A$ é uma matriz $n \times n$ definida por:
 
@@ -68,15 +68,11 @@ $$
 $$
 
 
-# Agora vamos para o passo a passo do problema usando QAOA:  
 
-## Primeiro vamos definir uma hamiltoniano de corte $H_C$
+## Referências
 
-$$
-H_C = \sum_{i,j \in
-$$
+1. Farhi, E., Goldstone, J., & Gutmann, S. (2014). A Quantum Approximate Optimization Algorithm. arXiv:1411.4028.
+2. Qiskit Documentation: Quantum Approximate Optimization Algorithm
+3. Lucas, A. (2014). Ising formulations of many NP problems. Frontiers in Physics, 2, 5.
 
 ---
-
-
-
