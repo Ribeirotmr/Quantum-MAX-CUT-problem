@@ -43,11 +43,14 @@ Each row means: **(vertex $i$, vertex $j$, weight)**.
 If we have $n$ vertices, the adjacency matrix $A$ is an $n \times n$ matrix defined by:
 
 $$
-A[i][j] = w_{ij}, & \text{if edge } (i,j) \text{ exists} \\ 0, & \text{otherwise}
+A[i][j] =
+w_{ij}, &
+\text{if edge } (i,j) 
+\text{ exists} \\ 0, & \text{otherwise}
 $$
 
 Example:  
-For \( n = 4 \) and edges:
+For $n = 4$ and edges:
 - (1, 2) with weight 3
 - (2, 3) with weight 4
 - (3, 4) with weight 1
@@ -118,49 +121,55 @@ The QAOA is applied to Max-Cut following a structured procedure:
 
 1. **Definition of Input Data**:
    - $p$: circuit depth (number of layers);
-   - $\vec{\gamma} = (\gamma_0, \gamma_1, \dots, \gamma_{p-1}) $: phase parameters;
+   - $\vec{\gamma} = (\gamma_0, \gamma_1, \dots, \gamma_{p-1})$: phase parameters;
    - $\vec{\beta} = (\beta_0, \beta_1, \dots, \beta_{p-1}) $: mixing parameters;
    - Graph $G = (V, E)$ represented by an adjacency matrix $A$, where:
-   - 
-   $$
-   A[i][j] =
-   \begin{cases}
-   w_{ij}, & \text{if } (i,j) \in E, \\
-   0, & \text{otherwise}.
-   \end{cases}
-   $$
+   
+$$
+A[i][j] =
+\begin{cases}
+w_{ij}, & \text{if } (i,j) \in E, \\
+0, & \text{otherwise}.
+\end{cases}
+$$
 
 2. **Definition of the Cost Hamiltonian**:  
    The cost Hamiltonian for Max-Cut is mapped as:
-   $$
-   H_C = \frac{1}{2} \sum_{(i,j) \in E} w_{ij} (1 - Z_i Z_j),
-   $$
+   
+$$
+H_C = \frac{1}{2} \sum_{(i,j) \in E} w_{ij} (1 - Z_i Z_j),
+$$
+   
    where $Z_i$ is the Pauli-Z operator acting on qubit $i$, and $1 - Z_i Z_j$ encodes the cut (value +1 for opposite states, -1 for equal states).
 
-3. **Definition of the Mixer Hamiltonian**:  
+4. **Definition of the Mixer Hamiltonian**:  
    The mixer Hamiltonian is given by:
-   $$
-   H_M = \sum_{i \in V} X_i,
-   $$
+   
+$$
+H_M = \sum_{i \in V} X_i,
+$$
+   
    where $X_i$ is the Pauli-X operator acting on qubit $i$, promoting transitions between states.
 
-4. **Construction of the QAOA Circuit**:
+6. **Construction of the QAOA Circuit**:
    - Initialize the state $|\psi_0\rangle = |+\rangle^{\otimes n}$ by applying Hadamard gates $H^{\otimes n}$ to $|0\rangle^{\otimes n}$.
    - For each layer $k = 0$ to $p-1$:
      - Apply the phase operator: $U_C(\gamma_k) = e^{-i \gamma_k H_C}$, implemented via rotations $RZZ(2 \gamma_k w_{ij})$ on the edges $(i,j)$.
      - Apply the mixing operator: $U_M(\beta_k) = e^{-i \beta_k H_M}$, implemented via rotations $R_X(2 \beta_k)$ on each qubit.
    - The final state is:
-   $$
-   |\psi(\vec{\beta}, \vec{\gamma})\rangle = \prod_{k=0}^{p-1} U_M(\beta_k) U_C(\gamma_k) |\psi_0\rangle.
-   $$
+     
+$$
+|\psi(\vec{\beta}, \vec{\gamma})\rangle = \prod_{k=0}^{p-1} U_M(\beta_k) U_C(\gamma_k) |\psi_0\rangle.
+$$
 
-5. **Computation of the Expected Value**:  
+7. **Computation of the Expected Value**:  
    The expected value of the cost Hamiltonian is:
-   $$
-   F(\vec{\beta}, \vec{\gamma}) = \langle \psi(\vec{\beta}, \vec{\gamma}) | H_C | \psi(\vec{\beta}, \vec{\gamma}) \rangle.
-   $$
 
-6. **Parameter Optimization**:  
+$$
+F(\vec{\beta}, \vec{\gamma}) = \langle \psi(\vec{\beta}, \vec{\gamma}) | H_C | \psi(\vec{\beta}, \vec{\gamma}) \rangle.
+$$
+
+9. **Parameter Optimization**:  
    A classical optimizer (e.g., COBYLA) is used to maximize $F(\vec{\beta}, \vec{\gamma})$, adjusting the parameters iteratively.
 
 The implementation of the operators $e^{-i \gamma_k H_C}$ and $e^{-i \beta_k H_M}$ can be carried out in Qiskit using decompositions into native quantum gates such as $RZZ$ and $R_X$, as discussed in the practical implementation section.
