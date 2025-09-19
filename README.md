@@ -135,7 +135,6 @@ $$
 
 2. **Definition of the Cost Hamiltonian**:  
    The cost Hamiltonian for Max-Cut is mapped as:
-   
 $$
 H_C = \frac{1}{2} \sum_{(i,j) \in E} w_{ij} (1 - Z_i Z_j),
 $$
