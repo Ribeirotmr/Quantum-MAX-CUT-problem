@@ -43,9 +43,7 @@ Each row means: **(vertex $i$, vertex $j$, weight)**.
 If we have $n$ vertices, the adjacency matrix $A$ is an $n \times n$ matrix defined by:
 
 $$
-A[i][j] =
-w_{ij}, & \text{if edge } (i,j) \text{ exists} \\
-0, & \text{otherwise}
+A[i][j] = w_{ij}, & \text{if edge } (i,j) \text{ exists} \\ 0, & \text{otherwise}
 $$
 
 Example:  
