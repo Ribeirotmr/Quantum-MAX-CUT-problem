@@ -44,10 +44,8 @@ If we have $n$ vertices, the adjacency matrix $A$ is an $n \times n$ matrix defi
 
 $$
 A[i][j] =
-\begin{cases}
 w_{ij}, & \text{if edge } (i,j) \text{ exists} \\
 0, & \text{otherwise}
-\end{cases}
 $$
 
 Example:  
